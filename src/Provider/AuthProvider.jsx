@@ -48,6 +48,9 @@ const AuthProvider = ({ children }) => {
     })
   }
 
+  // mobile nav
+  const [isOpen, setIsOpen] = useState(false);
+
   // onAuthStateChange
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -62,6 +65,8 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
+    isOpen,
+    setIsOpen,
     setUser,
     loading,
     setLoading,

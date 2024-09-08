@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 const Login = () => {
 
     const [showPass, setShowPass] = useState(false)
-    const { signIn ,signInWithGoogle} = useContext(AuthContext)
+    const { signIn ,signInWithGoogle,isOpen} = useContext(AuthContext)
     const navigate = useNavigate()
 
     const handleLogin = e => {
@@ -42,7 +42,7 @@ const Login = () => {
     return (
         <div>
             <h2 className="lg:block hidden  relative top-10 text-2xl font-bold text-center">SignUp</h2>
-            <div className="flex lg:gap-7 gap-7 lg:flex-row flex-col my-10">
+            <div className={`flex lg:gap-7 ${isOpen?'mt-60':''} gap-7 lg:flex-row flex-col my-10`}>
 
                 <div className="w-1/2 ">
                     <img className='h-4/5 relative left-24 lg:left-48' src={login} alt="" />

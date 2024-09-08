@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
-import icon from '../../public/Image/Logo.png'
+import { useContext, useEffect, useState } from 'react';
+import icon from '../../public/Image/icons8-restaurant-96.png'
 import imge from '../../public/Image/Head.avif'
 import { Link, NavLink } from 'react-router-dom';
-import { Tooltip } from 'react-tooltip';
+import { AuthContext } from '../Provider/AuthProvider';
+import toast from 'react-hot-toast';
+import ProfileDropdown from './ProfileDropDown';
 const Nav = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const { logOut, user ,setIsOpen,isOpen} = useContext(AuthContext)
+    
     const [theme, setTheme] = useState('light')
     useEffect(() => {
         localStorage.setItem('theme', theme)
@@ -20,7 +23,10 @@ const Nav = () => {
             setTheme('light')
         }
     }
-
+    const handleLogOut = () => {
+        logOut()
+        toast.success('logged out successfully')
+    }
     return (
         <nav className="relative  lg:h-[80px]  bg-purple-300 shadow dark:bg-gray-800">
             <div className="container px-6 py-4 mx-auto">
@@ -28,7 +34,7 @@ const Nav = () => {
                     <div className="flex items-center justify-between">
                         <div className='flex'>
                             <img className="h-14 " src={icon} alt="Logo" />
-                            <p className='text-2xl lg:block hidden font-semibold text-gray-800 relative top-3'>PV Library</p>
+                            <p className='text-2xl lg:block hidden font-semibold text-purple-800 relative top-3'>EliteEateries</p>
                         </div>
 
 
@@ -41,11 +47,11 @@ const Nav = () => {
                                 aria-label="toggle menu"
                             >
                                 {isOpen ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-purple-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                                     </svg>
                                 ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-purple-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16" />
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 12h14" />
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 18h16" />
@@ -79,54 +85,70 @@ const Nav = () => {
                                 Home
                             </NavLink>
                             <NavLink
-                                to="/addBooks"
+                                to="/gallery"
                                 className={({ isActive }) =>
                                     `px-3 text-[17px] text-purple-900 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 dark:hover:bg-gray-700 ${isActive ? 'bg-purple-300  border-2 border-purple-700 rounded-none font-semibold' : ''}`
                                 }>
-                                Add Book
+                                Gallery
                             </NavLink>
                             <NavLink
-                                to="/allBooks"
+                                to="/allFoods"
                                 className={({ isActive }) =>
                                     `px-3 text-[17px] text-purple-900 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 dark:hover:bg-gray-700 ${isActive ? 'bg-purple-300  border-2 border-purple-700 rounded-none font-semibold' : ''}`
                                 }>
-                                All Book
+                                All Foods
                             </NavLink>
-                            <NavLink
-                                to="/borrowBooks"
-                                className={({ isActive }) =>
-                                    `px-3 text-[17px] text-purple-900 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 dark:hover:bg-gray-700 ${isActive ? 'bg-purple-300  border-2 border-purple-700 rounded-none font-semibold' : ''}`
-                                }>
-                                Borrow Book
-                            </NavLink>
+                            <div className='flex justify-center'>
+                                <ProfileDropdown></ProfileDropdown>
+                            </div>
 
-                            <div className="flex items-center text-[17px] mt-4 lg:mt-0">
-                      <Link to='/login'>
-                      <button
-                                className="btn rounded-full text-white bg-teal-300 hidden mx-4 transition-colors duration-300 transform  hover:bg-teal-300 hover:border-2 hover:border-purple-500  border-2  border-teal-300 lg:block "
-                                aria-label="show notifications"
-                            >
-                                Login
-                            </button>
-                      </Link>
+                            {
+                                user ? <div className="flex items-center text-[17px] mt-4 lg:mt-0">
+                                    <Link >
+                                        <button
+                                            onClick={handleLogOut}
+                                            className="btn rounded-full text-white bg-pink-600 hidden mx-4 transition-colors duration-300 transform  hover:bg-pink-600 hover:border-2 hover:border-purple-500  border-2  border-purple-600 lg:block "
+                                            aria-label="show notifications"
+                                        >
+                                            LogOut
+                                        </button>
+                                    </Link>
 
+                                </div> : <div className="flex items-center text-[17px] mt-4 lg:mt-0">
+                                    <Link to='/login'>
+                                        <button
+                                            className="btn rounded-full text-white bg-teal-300 hidden mx-4 transition-colors duration-300 transform  hover:bg-teal-300 hover:border-2 hover:border-purple-500  border-2  border-teal-300 lg:block "
+                                            aria-label="show notifications"
+                                        >
+                                            Login
+                                        </button>
+                                    </Link>
+
+                                </div>
+                            }
                         </div>
-                        </div>
 
-                  
-                 
+
+
                     </div>
-                    <div className='lg:block hidden'>
+                    {
+                        user ? <div className='lg:block hidden'>
                             <button type="button" className=" flex items-center focus:outline-none">
                                 <div className="w-14 h-14 overflow-hidden border-gray-400 rounded-full">
-                                    <img data-tooltip-id="my-tooltip"
-                                    data-tooltip-content='jo'
-                                    data-tooltip-place="top"  src={imge} className="object-cover w-full h-full" alt="avatar" />
-                                     <Tooltip id="my-tooltip"></Tooltip>
-                                </div>
+                                    <img
+                                        src={user?.photoURL} className="object-cover w-full h-full" alt="avatar" />
 
+                                </div>
+                            </button>
+                        </div> : <div className='lg:block hidden'>
+                            <button type="button" className=" flex items-center focus:outline-none">
+                                <div className="w-14 h-14 overflow-hidden border-gray-400 rounded-full">
+                                    <img
+                                        src={imge} className="object-cover w-full h-full" alt="avatar" />
+                                </div>
                             </button>
                         </div>
+                    }
                 </div>
             </div>
         </nav>

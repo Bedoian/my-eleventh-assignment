@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
-import App from "../App";
-import AddBooks from "../Pages/AddBooks";
-import AllBooks from "../Pages/AllBooks";
-import BorrowBooks from "../Pages/BorrowBooks";
 import Login from "../Pages/Authentication/Login";
 import SignUp from "../Pages/Authentication/SignUp";
+import Home from "../Pages/Home/Home";
+import Gallery from "../Pages/Gallery";
+import AllFoods from "../Pages/AllFoods";
+import AddItem from "../Pages/AddItem";
+import MyOrder from "../Pages/MyOrder";
+import MyAddedList from "../Pages/MyAddedList";
 export const router = createBrowserRouter([
     {
       path: "/",
@@ -13,19 +15,15 @@ export const router = createBrowserRouter([
       children:[
         {
         path:'/',
-        element:<App></App>
+        element:<Home></Home>
         },
         {
-          path:'/addBooks',
-          element:<AddBooks></AddBooks>
+          path:'/gallery',
+          element:<Gallery></Gallery>
         },
         {
-          path:'/allBooks',
-          element:<AllBooks></AllBooks>
-        },
-        {
-          path:'/borrowBooks',
-          element:<BorrowBooks></BorrowBooks>
+          path:'/allFoods',
+          element:<AllFoods></AllFoods>
         },
         {
           path:'/login',
@@ -34,6 +32,18 @@ export const router = createBrowserRouter([
         {
           path:'/signUp',
           element:<SignUp></SignUp>
+        },
+        {
+          path:'/myOrder',
+          element:<MyOrder></MyOrder>
+        },
+        {
+          path:'/addItem',
+          element:<AddItem></AddItem>
+        },
+        {
+          path:'/myAddedList',
+          element:<MyAddedList></MyAddedList>
         }
       ]
     },
