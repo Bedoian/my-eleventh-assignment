@@ -6,7 +6,7 @@ import Home from "../Pages/Home/Home";
 import Gallery from "../Pages/Gallery";
 import AllFoods from "../Pages/AllFoods";
 import AddItem from "../Pages/AddItem";
-import MyOrder from "../Pages/MyOrder";
+import MyOrder from "../Pages/MyPurchase";
 import MyAddedList from "../Pages/MyAddedList";
 export const router = createBrowserRouter([
     {
@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
           element:<SignUp></SignUp>
         },
         {
-          path:'/myOrder',
+          path:'/myPurchase',
           element:<MyOrder></MyOrder>
         },
         {

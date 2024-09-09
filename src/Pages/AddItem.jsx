@@ -1,48 +1,69 @@
 import { useContext } from "react";
-import Swal from "sweetalert2";
-
-import { Link } from "react-router-dom";
+// import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const AddItem = () => {
     const { user } = useContext(AuthContext)
 
-    const handleAddSpots = e => {
+    const handleAddSpots =async e => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
-        const country = form.country.value;
-        const location = form.location.value;
         const photo = form.photo.value;
-        const cost = form.cost.value;
-        const Ttime = form.time.value;
-        const visitor = form.visitor.value;
+        const quantity = form.quantity.value;
+        const price = form.price.value;
         const discription = form.discription.value;
         const email = user.email
+        const origin = form.origin.value;
+        const itemDetail = {
+            name,
+            quantity,
+            photo,
+            price,
+            origin,
+            discription,
+            buyer:{
+                email,
+                name:user?.displayName,
+                photo:user?.photoURL
+            }
+        }
 
-        const spotDetail = { name, country, location, photo, cost, Ttime, visitor, discription, email }
+        // console.table(itemDetail);
 
         // send spot data to the server
-        fetch('https://my-tenth-assignment-server-one.vercel.app/spot', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(spotDetail)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                if (data.insertedId) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Coffee Added Successfully',
-                        icon: 'success',
-                        confirmButtonText: 'Continue'
-                    })
-                    form.reset()
-                }
-            })
+
+        try{
+            const{data}=await axios.post(`${import.meta.env.VITE_API_URL}/items`,itemDetail)
+            console.log(data);
+            toast.success('data added successfully')
+        }
+
+        catch(err){
+            console.log(err);
+        }
+        // fetch('https://my-tenth-assignment-server-one.vercel.app/spot', {
+        //     method: 'POST',
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify(itemDetail)
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data);
+        //         if (data.insertedId) {
+        //             Swal.fire({
+        //                 title: 'Success!',
+        //                 text: 'Coffee Added Successfully',
+        //                 icon: 'success',
+        //                 confirmButtonText: 'Continue'
+        //             })
+        //             form.reset()
+        //         }
+        //     })
 
 
 
@@ -118,16 +139,12 @@ const AddItem = () => {
                         <label className="text-gray-700 " htmlFor="min_price">
                             Price
                         </label>
-                        <span className="absolute inset-y-0 top-[33px] left-32 lg:top-[27px] lg:left-[270px] pl-3 flex items-center text-gray-700 pointer-events-none">
-                            €
-                        </span>
                         <input
-                            defaultValue={30}
                             id="min_price"
-                            step="5"
                             name="price"
+                            placeholder="Price"
                             type="number"
-                            className="text-center border border-blue-300 block w-full pl-8 pr-4 py-3 mt-2 text-gray-700 bg-white  rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+                            className="border border-blue-300 block w-full pl-3 pr-4 py-3 mt-2 text-gray-700 bg-white  rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                         />
                     </div>
                     <div className="form-control md:w-1/2 relative bottom-[3px] ">

@@ -60,13 +60,13 @@ const ProfileDropdown = () => {
                         </NavLink>
                     </div>
                     <NavLink
-                        to="/myOrder"
+                        to="/myPurchase"
                         className={({ isActive }) =>
                             `block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-purple-300 dark:hover:bg-gray-700 ${
                                 isActive ? 'bg-purple-300 text-purple-600 font-semibold' : ''
                             }`
                         }>
-                        My Ordered Items
+                        My Purchased Items
                     </NavLink>
                 </div>
             )}
