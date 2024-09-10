@@ -4,7 +4,7 @@ import Login from "../Pages/Authentication/Login";
 import SignUp from "../Pages/Authentication/SignUp";
 import Home from "../Pages/Home/Home";
 import Gallery from "../Pages/Gallery";
-import AllFoods from "../Pages/AllFoods";
+import AllFoods from "../Pages/AllFood/AllFoods";
 import AddItem from "../Pages/AddItem";
 import MyOrder from "../Pages/MyPurchase";
 import MyAddedList from "../Pages/MyAddedList";

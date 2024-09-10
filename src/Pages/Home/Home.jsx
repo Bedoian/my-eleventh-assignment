@@ -1,4 +1,5 @@
 import Carousel from "../../Components/SwiperSlider/Carousel";
+import HomeCard from "./HomeCard/HomeCard";
 
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
         <div >
            <div className="mt-4">
            <Carousel></Carousel>
+           <HomeCard></HomeCard>
            </div>
         </div>
     );
