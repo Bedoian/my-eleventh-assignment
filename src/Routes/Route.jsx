@@ -5,9 +5,11 @@ import SignUp from "../Pages/Authentication/SignUp";
 import Home from "../Pages/Home/Home";
 import Gallery from "../Pages/Gallery";
 import AllFoods from "../Pages/AllFood/AllFoods";
-import AddItem from "../Pages/AddItem";
-import MyOrder from "../Pages/MyPurchase";
-import MyAddedList from "../Pages/MyAddedList";
+import AddItem from "../Pages/MyProfile/AddItem";
+import MyAddedList from "../Pages/MyProfile/MyAddedList";
+import FoodDetails from "../Pages/AllFood/FoodDetails";
+import MyPurchase from "../Pages/MyProfile/MyPurchase";
+import Purchase from "../Pages/Purchase Page/Purchase";
 export const router = createBrowserRouter([
     {
       path: "/",
@@ -34,16 +36,26 @@ export const router = createBrowserRouter([
           element:<SignUp></SignUp>
         },
         {
-          path:'/myPurchase',
-          element:<MyOrder></MyOrder>
-        },
-        {
           path:'/addItem',
           element:<AddItem></AddItem>
         },
         {
           path:'/myAddedList',
           element:<MyAddedList></MyAddedList>
+        },
+        {
+          path:'/foodDetails/:id',
+          element:<FoodDetails></FoodDetails>,
+          loader:({params})=>fetch(`http://localhost:5000/items/${params.id}`)
+        },
+        {
+          path:'/myPurchase',
+          element:<MyPurchase></MyPurchase>
+        },
+        {
+          path:'/purchase/:id',
+          element:<Purchase></Purchase>,
+          loader:({params})=>fetch(`http://localhost:5000/items/${params.id}`)
         }
       ]
     },

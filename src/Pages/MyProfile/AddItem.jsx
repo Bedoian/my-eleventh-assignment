@@ -1,6 +1,6 @@
 import { useContext } from "react";
 // import Swal from "sweetalert2";
-import { AuthContext } from "../Provider/AuthProvider";
+import { AuthContext } from "../../Provider/AuthProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -17,6 +17,7 @@ const AddItem = () => {
         const discription = form.discription.value;
         const email = user.email
         const origin = form.origin.value;
+        const category=form.foodCategory.value;
         const itemDetail = {
             name,
             quantity,
@@ -24,6 +25,7 @@ const AddItem = () => {
             price,
             origin,
             discription,
+            category,
             buyer:{
                 email,
                 name:user?.displayName,
@@ -39,6 +41,7 @@ const AddItem = () => {
             const{data}=await axios.post(`${import.meta.env.VITE_API_URL}/items`,itemDetail)
             console.log(data);
             toast.success('data added successfully')
+            form.reset()
         }
 
         catch(err){

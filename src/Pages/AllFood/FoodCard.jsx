@@ -16,7 +16,7 @@ const FoodCard = ({ allCard }) => {
                             <p className=" text-center text-gray-500 text-xl font-semibold">{card.name}</p>
                             <div className="flex mx-6 justify-between gap-4 border-b-2 pb-3">
                                 <button className="p-2 bg-green-100 text-green-600 rounded-full">#{card.category}</button>
-                                <Link to={`/viewCountry/${card._id}`}>
+                                <Link to={`/foodDetails/${card._id}`}>
                                     <button className="btn btn-ghost rounded-full  text-red-400 mt-2 border-red-400">View Details</button>
                                 </Link>
                             </div>
