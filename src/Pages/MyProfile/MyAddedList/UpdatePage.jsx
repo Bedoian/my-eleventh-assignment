@@ -1,13 +1,15 @@
 import { useContext } from "react";
-// import Swal from "sweetalert2";
-import { AuthContext } from "../../Provider/AuthProvider";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import { useLoaderData } from "react-router-dom";
 import axios from "axios";
-import toast from "react-hot-toast";
 
-const AddItem = () => {
-    const { user } = useContext(AuthContext)
 
-    const handleAddSpots =async e => {
+const UpdatePage = () => {
+    const{user}=useContext(AuthContext)
+    const data=useLoaderData()
+    const{name,quantity,photo,origin,price,discription,category,_id}=data
+
+    const handleUpdate=async(e)=>{
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
@@ -15,47 +17,37 @@ const AddItem = () => {
         const quantity = form.quantity.value;
         const price = form.price.value;
         const discription = form.discription.value;
-        const email = user.email
         const origin = form.origin.value;
         const category=form.foodCategory.value;
-        const itemDetail = {
+        const updatedItem={
             name,
-            quantity,
             photo,
+            quantity,
             price,
-            origin,
             discription,
+            origin,
             category,
-            buyer:{
-                email,
+            seller:{
+                email:user?.email,
                 name:user?.displayName,
                 photo:user?.photoURL
             }
         }
+        console.table(updatedItem)
 
-        // console.table(itemDetail);
-
-        // send spot data to the server
 
         try{
-            const{data}=await axios.post(`${import.meta.env.VITE_API_URL}/items`,itemDetail)
+            const{data}=await axios.put(`${import.meta.env.VITE_API_URL}/myAddedItem/${_id}`,updatedItem)
             console.log(data);
-            toast.success('data added successfully')
-            form.reset()
         }
-
         catch(err){
-            console.log(err);
+            console.log(err.message)
         }
-
-
-
     }
-
     return (
-        <div className="bg-gradient-to-r mt-10 from-pink-100 to-purple-200  rounded-md lg:mx-28 md:p-4 lg:p-8 p-4 pt-9 mx-3   border-2 border-blue-300 ">
-            <h2 className="text-4xl text-center text-purple-500 relative bottom-5 font-semibold">Add Food Item</h2>
-            <form onSubmit={handleAddSpots}>
+        <div className="bg-gradient-to-r mt-10 from-pink-50 to-pink-100  rounded-md lg:mx-28 md:p-4 lg:p-8 p-4 pt-9 mx-3   border-2 border-pink-300">
+            <h2 className="text-4xl text-center text-pink-500 relative bottom-5 font-semibold">Update Added Food Item</h2>
+            <form onSubmit={handleUpdate}>
                 {/* Tourist spot and country row */}
                 <div className="lg:flex md:flex mb-4 lg:gap-3">
                     <div className="form-control lg:w-1/2 md:w-1/2">
@@ -67,6 +59,7 @@ const AddItem = () => {
                                 type="text"
                                 name="name"
                                 placeholder="Food Name"
+                                defaultValue={name}
                                 className="input border border-blue-300 input-bordered w-full" />
                         </label>
                     </div>
@@ -77,6 +70,7 @@ const AddItem = () => {
                         <label className="input-group">
                             <input
                                 type="url"
+                                defaultValue={photo}
                                 name="photo"
                                 placeholder="Food Image"
                                 className="input border border-blue-300 input-bordered w-full" />
@@ -92,6 +86,7 @@ const AddItem = () => {
                         <label className="input-group">
                             <input
                                 type="number"
+                                defaultValue={quantity}
                                 name="quantity"
                                 placeholder="Quantity"
                                 className="input border border-blue-300 input-bordered w-full" />
@@ -104,6 +99,7 @@ const AddItem = () => {
                         <label className="input-group">
                             <select
                                 name="foodCategory"
+                                defaultValue={category}
                                 className="select border border-blue-300 select-bordered w-full">
                                 <option disabled selected>Select Food Category</option>
                                 <option value="burger">Burger</option>
@@ -125,18 +121,26 @@ const AddItem = () => {
                         <input
                             id="min_price"
                             name="price"
+                            defaultValue={price}
                             placeholder="Price"
                             type="number"
                             className="border border-blue-300 block w-full pl-3 pr-4 py-3 mt-2 text-gray-700 bg-white  rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                         />
                     </div>
-                    <div className="form-control md:w-1/2 relative bottom-[3px] ">
-                        <label className="label">
-                            <span className="label-text">Added By</span>
+                    <div className="relative form-control md:w-1/2">
+                        <label className="text-gray-700 " htmlFor="min_price">
+                           Added By:
                         </label>
-                        <h1 className="bg-white pl-3 py-3 rounded-md border border-blue-300">{user?.email || 'loggedUser@gmail.com'}</h1>
-
+                        <input
+                            id="min_price"
+                            name="addedBy"
+                            defaultValue={user?.email}
+                            placeholder="Added By"
+                            type="email"
+                            className="border border-blue-300 block w-full pl-3 pr-4 py-3 mt-2 text-gray-700 bg-white  rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+                        />
                     </div>
+
                 </div>
                 {/* Travel time and visitor row */}
                 <div className="lg:flex md:flex mb-4 lg:gap-3">
@@ -147,6 +151,7 @@ const AddItem = () => {
                         <label className="input-group">
                             <input
                                 type="text"
+                                defaultValue={origin}
                                 name="origin"
                                 placeholder="Food Origin"
                                 className="input border border-blue-300 input-bordered w-full" />
@@ -159,17 +164,18 @@ const AddItem = () => {
                         <label className="input-group">
                             <input
                                 type="text"
+                                defaultValue={discription}
                                 name="discription"
                                 placeholder="discription"
                                 className="input border border-blue-300 input-bordered w-full" />
                         </label>
                     </div>
                 </div>
-                <input type="submit" value="Add+" className="btn btn-block bg-purple-500 text-white text-xl" />
+                <input type="submit" value="Update" className="btn btn-block bg-pink-500 text-white text-xl" />
 
             </form>
         </div>
     );
 };
 
-export default AddItem;
+export default UpdatePage;

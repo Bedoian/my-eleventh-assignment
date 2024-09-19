@@ -6,10 +6,11 @@ import Home from "../Pages/Home/Home";
 import Gallery from "../Pages/Gallery";
 import AllFoods from "../Pages/AllFood/AllFoods";
 import AddItem from "../Pages/MyProfile/AddItem";
-import MyAddedList from "../Pages/MyProfile/MyAddedList";
+import MyAddedList from "../Pages/MyProfile/MyAddedList/MyAddedList";
 import FoodDetails from "../Pages/AllFood/FoodDetails";
 import MyPurchase from "../Pages/MyProfile/MyPurchase";
 import Purchase from "../Pages/Purchase Page/Purchase";
+import UpdatePage from "../Pages/MyProfile/MyAddedList/UpdatePage";
 export const router = createBrowserRouter([
     {
       path: "/",
@@ -56,6 +57,11 @@ export const router = createBrowserRouter([
           path:'/purchase/:id',
           element:<Purchase></Purchase>,
           loader:({params})=>fetch(`http://localhost:5000/items/${params.id}`)
+        },
+        {
+          path:'/update/:id',
+          element:<UpdatePage></UpdatePage>,
+          loader:({params})=>fetch(`http://localhost:5000/myAddedItem/${params.id}`)
         }
       ]
     },
