@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const FoodCard = ({ allCard }) => {
     return (
         <div>
-            <div className="grid lg:mx-28 lg:grid-cols-3 md:grid-cols-2 md:gap-3 grid-cols-1 gap-3 lg:mt-14 lg:gap-8">
+            <div className="grid  mx-4 my-5 lg:mx-28 lg:grid-cols-3 md:grid-cols-2 md:gap-3 grid-cols-1 gap-3 lg:mt-14 lg:gap-8">
                 {
                     allCard.map(card => <div key={card._id} className=" bg-base-100 border-gray-300 rounded-xl border-2 shadow-xl">
                         <figure>

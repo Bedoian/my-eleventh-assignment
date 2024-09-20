@@ -12,7 +12,7 @@ const HomeCard = () => {
     return (
         <div className="mt-8">
         <h1 className="text-3xl my-4 font-bold text-center">Just Explore our top selling product</h1>
-        <div className="grid lg:mx-28 lg:grid-cols-3 md:grid-cols-2 md:gap-3 grid-cols-1 gap-3 lg:gap-8">
+        <div className="grid mx-4 lg:mx-28 lg:grid-cols-3 md:grid-cols-2 md:gap-3 grid-cols-1 gap-3 lg:gap-8">
             {
                 cardCon.slice(0,6).map(card => <div key={card._id} className=" bg-base-100 border-gray-300 rounded-xl border-2 shadow-xl">
                     <figure>

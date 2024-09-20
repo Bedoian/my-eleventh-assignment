@@ -3,7 +3,7 @@ import Main from "../Layout/Main";
 import Login from "../Pages/Authentication/Login";
 import SignUp from "../Pages/Authentication/SignUp";
 import Home from "../Pages/Home/Home";
-import Gallery from "../Pages/Gallery";
+import Gallery from "../Pages/Gallery/Gallery";
 import AllFoods from "../Pages/AllFood/AllFoods";
 import AddItem from "../Pages/MyProfile/AddItem";
 import MyAddedList from "../Pages/MyProfile/MyAddedList/MyAddedList";
@@ -24,7 +24,8 @@ export const router = createBrowserRouter([
         },
         {
           path:'/gallery',
-          element:<Gallery></Gallery>
+          element:<Gallery></Gallery>,
+          loader:()=>fetch(`${import.meta.env.VITE_API_URL}/review`)
         },
         {
           path:'/allFoods',
