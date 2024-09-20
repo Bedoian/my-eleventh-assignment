@@ -4,14 +4,14 @@ import { Link, useLoaderData } from "react-router-dom";
 const FoodDetails = () => {
     const data = useLoaderData()
     return (
-        <div className=" mt-24  min-h-screen">
-            <div className="flex flex-col lg:mx-9 lg:flex-row">
-                <div className="w-1/2">
+        <div className="lg:w-full lg:h-[500px] lg:mt-9">
+            <div className="flex flex-col lg:gap-0 gap-3 lg:mx-9 lg:flex-row">
+                <div className="lg:w-1/2 mx-2 lg:border-0 border rounded-md border-teal-400 ">
                     <img
                         className="lg:w-[700px] lg:rounded-lg "
                         src={data.photo} />
                 </div>
-                <div className="w-1/2">
+                <div className="lg:w-1/2 lg:border-2 lg:mx-0 mx-2 lg:mb-0 mb-3 lg:rounded-lg lg:p-2 border border-dotted border-blue-500 p-2">
                     <p className="text-3xl font-bold">{data.name}</p>
                     <h1 className="text-xl border-b-2 border-blue-400 border-dashed pb-3 font-semibold text-gray-600 my-3"><span className="text-xl font-bold text-blue-800">About:</span> {data.discription}</h1>
                     <div className="flex justify-between border-b-2 border-dashed border-blue-400 pb-2">
