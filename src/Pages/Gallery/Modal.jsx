@@ -34,11 +34,11 @@ const Modal = () => {
             {!isOpen && (
                 <div className='border-2 p-4 lg:w-96 h-[400px] border-blue-400 rounded-md'>
                     <div onClick={() => setIsOpen(true)} className='mb-4'>
-                        <img className=' lg:relative left-16 lg:w-52 h-52' src={img} alt="" />
+                        <img className=' relative left-8 lg:left-16 lg:w-52 h-52' src={img} alt="" />
                     </div>
                     <button
                         onClick={() => setIsOpen(true)}
-                        className="lg:relative left-16 top-10 px-6 text-2xl py-2 mx-auto tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                        className=" relative left-10 lg:left-16 top-10 px-6 text-2xl py-2 mx-auto tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                     >
                         <FaPlus className='relative left-20'></FaPlus> Add Exparience
                     </button>

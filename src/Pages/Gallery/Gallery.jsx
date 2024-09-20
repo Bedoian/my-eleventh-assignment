@@ -6,8 +6,9 @@ const Gallery = () => {
     console.log(datas);
     return (
         <div className="mb-10">
-            <h1 className="text-5xl my-4 text-purple-700 font-bold text-center">A Taste in Every Picture</h1>
-            <div className="grid grid-cols-3 mx-28">
+            <h1 className="lg:text-5xl text-2xl my-4 text-purple-700 font-bold text-center">A Taste in Every Picture</h1>
+            <p  className="text-xl lg:mx-20 mx-3 text-center font-semibold">Welcome to our gallery, where we invite you to experience the vibrant colors and rich flavors of our cuisine through stunning visuals. From our signature dishes to the cozy atmosphere, every photo tells a story of passion, creativity, and dedication to perfecting your dining experience.</p>
+            <div className="grid lg:grid-cols-3 mx-4 lg:mx-28">
                 {
                     datas.map(data => (
                         <div key={data._id} className="relative group mt-10">
@@ -25,11 +26,8 @@ const Gallery = () => {
                         </div>
                     ))
                 }
-
-
-
             </div>
-            <div className="mx-28">
+            <div className="lg:mx-28 mx-4">
                 <Modal></Modal>
             </div>
         </div>

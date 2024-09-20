@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import icon from '../../public/Image/icons8-restaurant-96.png'
 import imge from '../../public/Image/Head.avif'
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import toast from 'react-hot-toast';
 import ProfileDropdown from './ProfileDropDown';
 const Nav = () => {
     const { logOut, user ,setIsOpen,isOpen} = useContext(AuthContext)
-    
+    const navigate=useNavigate()
     const [theme, setTheme] = useState('light')
     useEffect(() => {
         localStorage.setItem('theme', theme)
@@ -27,13 +27,16 @@ const Nav = () => {
         logOut()
         toast.success('logged out successfully')
     }
+    const handleLogo=()=>{
+        navigate('/')
+    }
     return (
         <nav className="relative  lg:h-[80px]  bg-purple-300 shadow dark:bg-gray-800">
             <div className="container px-6 py-4 mx-auto">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">
                         <div className='flex'>
-                            <img className="h-14 " src={icon} alt="Logo" />
+                            <img onClick={handleLogo} className="h-14 btn bg-purple-300 hover:bg-purple-300 border-purple-300 " src={icon} alt="Logo" />
                             <p className='text-2xl lg:block hidden font-semibold text-purple-800 relative top-3'>EliteEateries</p>
                         </div>
 
