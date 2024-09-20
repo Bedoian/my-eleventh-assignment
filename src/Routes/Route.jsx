@@ -11,10 +11,12 @@ import FoodDetails from "../Pages/AllFood/FoodDetails";
 import MyPurchase from "../Pages/MyProfile/MyPurchase";
 import Purchase from "../Pages/Purchase Page/Purchase";
 import UpdatePage from "../Pages/MyProfile/MyAddedList/UpdatePage";
+import ErrorPage from "../Pages/ErrorPage";
 export const router = createBrowserRouter([
     {
       path: "/",
       element: <Main></Main>,
+      errorElement:<ErrorPage></ErrorPage>,
       children:[
         {
         path:'/',

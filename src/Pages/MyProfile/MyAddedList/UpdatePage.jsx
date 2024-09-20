@@ -1,15 +1,17 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 
 const UpdatePage = () => {
-    const{user}=useContext(AuthContext)
-    const data=useLoaderData()
-    const{name,quantity,photo,origin,price,discription,category,_id}=data
+    const { user } = useContext(AuthContext)
+    const data = useLoaderData()
+    const { name, quantity, photo, origin, price, discription, category, _id } = data
+    const navigate = useNavigate()
 
-    const handleUpdate=async(e)=>{
+    const handleUpdate = async (e) => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
@@ -18,8 +20,8 @@ const UpdatePage = () => {
         const price = form.price.value;
         const discription = form.discription.value;
         const origin = form.origin.value;
-        const category=form.foodCategory.value;
-        const updatedItem={
+        const category = form.foodCategory.value;
+        const updatedItem = {
             name,
             photo,
             quantity,
@@ -27,20 +29,25 @@ const UpdatePage = () => {
             discription,
             origin,
             category,
-            seller:{
-                email:user?.email,
-                name:user?.displayName,
-                photo:user?.photoURL
+            seller: {
+                email: user?.email,
+                name: user?.displayName,
+                photo: user?.photoURL
             }
         }
         console.table(updatedItem)
 
 
-        try{
-            const{data}=await axios.put(`${import.meta.env.VITE_API_URL}/myAddedItem/${_id}`,updatedItem)
+        try {
+            const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/myAddedItem/${_id}`, updatedItem)
             console.log(data);
+            if (data.modifiedCount > 0) {
+                toast.success('Item updated Successfully')
+                navigate('/myAddedList')
+            }
+
         }
-        catch(err){
+        catch (err) {
             console.log(err.message)
         }
     }
@@ -129,7 +136,7 @@ const UpdatePage = () => {
                     </div>
                     <div className="relative form-control md:w-1/2">
                         <label className="text-gray-700 " htmlFor="min_price">
-                           Added By:
+                            Added By:
                         </label>
                         <input
                             id="min_price"

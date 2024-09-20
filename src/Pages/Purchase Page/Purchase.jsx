@@ -17,6 +17,7 @@ const MyPurchase = () => {
 
         const purchaseData = {
             food_name: data.name,
+            photo:data.photo,
             price: data.price,
             buyer: {
                 name: user?.displayName,
@@ -47,7 +48,7 @@ const MyPurchase = () => {
 
         }
 
-    // console.log(user);
+    console.log(data);
     return (
         <div className="flex lg:justify-center">
             <section className='container px-4 lg:w-[1500px] pt-12'>
