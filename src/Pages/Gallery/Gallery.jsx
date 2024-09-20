@@ -1,13 +1,19 @@
 import { useLoaderData } from "react-router-dom";
 import Modal from "./Modal";
-
+import { motion } from 'framer-motion';
 const Gallery = () => {
     const datas = useLoaderData()
     console.log(datas);
     return (
         <div className="mb-10">
-            <h1 className="lg:text-5xl text-2xl my-4 text-purple-700 font-bold text-center">A Taste in Every Picture</h1>
-            <p  className="text-xl lg:mx-20 mx-3 text-center font-semibold">Welcome to our gallery, where we invite you to experience the vibrant colors and rich flavors of our cuisine through stunning visuals. From our signature dishes to the cozy atmosphere, every photo tells a story of passion, creativity, and dedication to perfecting your dining experience.</p>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 2 }}
+                transition={{ duration: 2 }}
+            >
+                <h1 className="lg:text-4xl text-2xl my-4 text-purple-700 font-bold text-center">A Taste in Every Picture</h1>
+                <p className="text-xl lg:mx-20 mx-3 text-center font-semibold">Welcome to our gallery, where we invite you to experience the vibrant colors and rich flavors of our cuisine through stunning visuals. From our signature dishes to the cozy atmosphere, every photo tells a story of passion, creativity, and dedication to perfecting your dining experience.</p>
+            </motion.div>
             <div className="grid lg:grid-cols-3 mx-4 lg:mx-28">
                 {
                     datas.map(data => (
