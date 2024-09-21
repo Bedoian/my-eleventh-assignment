@@ -106,11 +106,10 @@ const AddItem = () => {
                                 name="foodCategory"
                                 className="select border border-blue-300 select-bordered w-full">
                                 <option disabled selected>Select Food Category</option>
-                                <option value="burger">Burger</option>
                                 <option value="pizza">Pizza</option>
+                                <option value="burger">Burger</option>
                                 <option value="dessert">Dessert</option>
                                 <option value="beverage">Beverage</option>
-                                <option value="soups">Soups</option>
                             </select>
                         </label>
                     </div>

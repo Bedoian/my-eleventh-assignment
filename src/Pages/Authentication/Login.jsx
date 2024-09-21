@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import head from '../../../public/Image/Head.avif'
 import { AuthContext } from '../../Provider/AuthProvider';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 
 const Login = () => {
 
@@ -12,32 +13,45 @@ const Login = () => {
     const { signIn ,signInWithGoogle,isOpen} = useContext(AuthContext)
     const navigate = useNavigate()
 
-    const handleLogin = e => {
+    const handleLogin = async(e) => {
         e.preventDefault()
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
-        signIn(email, password)
-            .then(result => {
-                console.log(result.user)
-                toast.success('User logged in')
-                navigate('/')
-            })
-            .catch(error=>{
-                console.log(error)
-                toast.error(error.message)
-            })
+        try{
+            const result= signIn(email, password)
+            const{data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{email:result?.user?.email},{withCredentials:true})
+            console.log(data);
+            console.log(result);
+            toast.success('User Signed In')
+            navigate('/')
+
+
+        }
+        catch(err){
+            console.log(err.message);
+            toast.error(err.message)
+        }
+       
+       
 
     }
 
-    const handleGoogle = () => {
-        signInWithGoogle()
-        .then(result=>{
-            console.log(result.user)
-            toast.success('Google login successfull')
-            navigate('/')
-        })
+    const handleGoogle = async() => {
+        try{
+            const result=await  signInWithGoogle()
+            const{data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{email:result?.user?.email},{withCredentials:true})
+            console.log(data);
+            console.log(result);
+            toast.success('Google SignIn Successful')
+
+        }
+      catch(err){
+        console.log(err.message);
+        toast.error(err.message)
+      }
+       
     }
     return (
         <div>

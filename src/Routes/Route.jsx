@@ -12,6 +12,7 @@ import MyPurchase from "../Pages/MyProfile/MyPurchase";
 import Purchase from "../Pages/Purchase Page/Purchase";
 import UpdatePage from "../Pages/MyProfile/MyAddedList/UpdatePage";
 import ErrorPage from "../Pages/ErrorPage";
+import PrivetRoute from "../Provider/PrivetRoute";
 export const router = createBrowserRouter([
     {
       path: "/",
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
         },
         {
           path:'/foodDetails/:id',
-          element:<FoodDetails></FoodDetails>,
+          element:<PrivetRoute><FoodDetails/></PrivetRoute>,
           loader:({params})=>fetch(`http://localhost:5000/items/${params.id}`)
         },
         {
