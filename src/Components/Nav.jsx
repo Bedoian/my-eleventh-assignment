@@ -6,8 +6,8 @@ import { AuthContext } from '../Provider/AuthProvider';
 import toast from 'react-hot-toast';
 import ProfileDropdown from './ProfileDropDown';
 const Nav = () => {
-    const { logOut, user ,setIsOpen,isOpen} = useContext(AuthContext)
-    const navigate=useNavigate()
+    const { logOut, user, setIsOpen, isOpen } = useContext(AuthContext)
+    const navigate = useNavigate()
     const [theme, setTheme] = useState('light')
     useEffect(() => {
         localStorage.setItem('theme', theme)
@@ -27,7 +27,7 @@ const Nav = () => {
         logOut()
         toast.success('logged out successfully')
     }
-    const handleLogo=()=>{
+    const handleLogo = () => {
         navigate('/')
     }
     return (
@@ -37,7 +37,7 @@ const Nav = () => {
                     <div className="flex items-center justify-between">
                         <div className='flex'>
                             <img onClick={handleLogo} className="h-14 btn bg-purple-300 hover:bg-purple-300 border-purple-300 " src={icon} alt="Logo" />
-                            <p className='text-2xl lg:block hidden font-semibold text-purple-800 relative top-3'>EliteEateries</p>
+                            <p className='text-2xl font-semibold text-purple-800 relative top-3'>EliteEateries</p>
                         </div>
 
 
@@ -80,6 +80,22 @@ const Nav = () => {
                                     <svg className="col-start-2 row-start-1 stroke-base-100 fill-base-100" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                                 </label>
                             </div>
+                            {
+                                user ? <NavLink
+                                onClick={handleLogOut}
+                                    className={
+                                        `px-3 text-[17px] lg:hidden text-purple-900 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:border-2 border-purple-700 }`
+                                    }>
+                                    LogOut
+                                </NavLink> : <NavLink
+                                    to="/login"
+                                    className={({ isActive }) =>
+                                        `px-3 text-[17px] lg:hidden text-purple-900 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 dark:hover:bg-gray-700 ${isActive ? 'bg-purple-300  border-2 border-purple-700 rounded-none font-semibold' : ''}`
+                                    }>
+                                    Login
+                                </NavLink>
+                            }
+
                             <NavLink
                                 to="/"
                                 className={({ isActive }) =>
@@ -104,9 +120,12 @@ const Nav = () => {
                             <div className='flex justify-center'>
                                 <ProfileDropdown></ProfileDropdown>
                             </div>
-
+                        </div>
+                    </div>
+                    <div className='flex '>
+                        <div>
                             {
-                                user ? <div className="flex items-center text-[17px] mt-4 lg:mt-0">
+                                user ? <div className="flex lg:relative top-1 items-center text-[17px] mt-4 lg:mt-0">
                                     <Link >
                                         <button
                                             onClick={handleLogOut}
@@ -130,28 +149,27 @@ const Nav = () => {
                                 </div>
                             }
                         </div>
+                        <div>
+                            {
+                                user ? <div className='lg:block hidden'>
+                                    <button type="button" className=" flex items-center focus:outline-none">
+                                        <div className="w-14 h-14 overflow-hidden border-gray-400 rounded-full">
+                                            <img
+                                                src={user?.photoURL} className="object-cover w-full h-full" alt="avatar" />
 
-
-
-                    </div>
-                    {
-                        user ? <div className='lg:block hidden'>
-                            <button type="button" className=" flex items-center focus:outline-none">
-                                <div className="w-14 h-14 overflow-hidden border-gray-400 rounded-full">
-                                    <img
-                                        src={user?.photoURL} className="object-cover w-full h-full" alt="avatar" />
-
+                                        </div>
+                                    </button>
+                                </div> : <div className='lg:block hidden'>
+                                    <button type="button" className=" flex items-center focus:outline-none">
+                                        <div className="w-14 h-14 overflow-hidden border-gray-400 rounded-full">
+                                            <img
+                                                src={imge} className="object-cover w-full h-full" alt="avatar" />
+                                        </div>
+                                    </button>
                                 </div>
-                            </button>
-                        </div> : <div className='lg:block hidden'>
-                            <button type="button" className=" flex items-center focus:outline-none">
-                                <div className="w-14 h-14 overflow-hidden border-gray-400 rounded-full">
-                                    <img
-                                        src={imge} className="object-cover w-full h-full" alt="avatar" />
-                                </div>
-                            </button>
+                            }
                         </div>
-                    }
+                    </div>
                 </div>
             </div>
         </nav>

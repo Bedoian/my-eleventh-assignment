@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import FoodCard from "../../AllFood/FoodCard";
 import ListCard from "./ListCard";
 
 const MyAddedList = () => {
@@ -10,7 +9,7 @@ const MyAddedList = () => {
 
     useEffect(()=>{
         const getData=async()=>{
-            const{data}=await axios.get(`${import.meta.env.VITE_API_URL}/myAdded/${user?.email}`)
+            const{data}=await axios.get(`${import.meta.env.VITE_API_URL}/myAdded/${user?.email}`,{withCredentials:true})
            setAddedItem(data)
         }
         getData()
