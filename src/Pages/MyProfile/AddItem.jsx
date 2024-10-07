@@ -1,12 +1,10 @@
-import { useContext } from "react";
-// import Swal from "sweetalert2";
-import { AuthContext } from "../../Provider/AuthProvider";
-import axios from "axios";
 import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AddItem = () => {
-    const { user } = useContext(AuthContext)
-
+    const { user } = useAuth()
+    const axiosSecure=useAxiosSecure()
     const handleAddSpots =async e => {
         e.preventDefault()
         const form = e.target;
@@ -32,13 +30,10 @@ const AddItem = () => {
                 photo:user?.photoURL
             }
         }
-
-        // console.table(itemDetail);
-
         // send spot data to the server
 
         try{
-            const{data}=await axios.post(`${import.meta.env.VITE_API_URL}/items`,itemDetail)
+            const{data}=await axiosSecure.post(`/items`,itemDetail)
             console.log(data);
             toast.success('data added successfully')
             form.reset()

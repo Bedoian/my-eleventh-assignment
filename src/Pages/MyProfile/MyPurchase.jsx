@@ -1,20 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
+import {  useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyPurchase = () => {
-  
-    const { user } = useContext(AuthContext)
+    const axiosSecure=useAxiosSecure()
+    const { user } = useAuth()
     const [datas, setData] = useState([])
 
     useEffect(() => {
-    
         getData()
     }, [user])
     // console.log(datas);
     const getData=async()=>{
-        const {data}=await axios.get(`${import.meta.env.VITE_API_URL}/purchaseItem/${user?.email}`)
+        const {data}=await axiosSecure.get(`/purchaseItem/${user?.email}`)
         setData(data)
     }
 

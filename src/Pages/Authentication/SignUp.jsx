@@ -1,19 +1,15 @@
-
 import { Link, useNavigate } from 'react-router-dom';
 import login from '../../../public/Image/SignUp.jpg'
-import { useContext, useState } from 'react';
+import {  useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { AuthContext } from '../../Provider/AuthProvider';
-
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { updateProfile } from 'firebase/auth';
-
-
+import useAuth from '../../hooks/useAuth';
 const SignUp = () => {
     const navigate = useNavigate()
     const [showPass, setShowPass] = useState(false)
-    const { createUser ,isOpen} = useContext(AuthContext)
+    const { createUser ,isOpen} = useAuth()
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const onSubmit = data => {

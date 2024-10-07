@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import icon from '../../public/Image/icons8-restaurant-96.png'
 import imge from '../../public/Image/Head.avif'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../Provider/AuthProvider';
 import toast from 'react-hot-toast';
 import ProfileDropdown from './ProfileDropDown';
+import useAuth from '../hooks/useAuth';
 const Nav = () => {
-    const { logOut, user, setIsOpen, isOpen } = useContext(AuthContext)
+    const { logOut, user, setIsOpen, isOpen } = useAuth()
     const navigate = useNavigate()
     const [theme, setTheme] = useState('light')
     useEffect(() => {
@@ -82,7 +82,7 @@ const Nav = () => {
                             </div>
                             {
                                 user ? <NavLink
-                                onClick={handleLogOut}
+                                    onClick={handleLogOut}
                                     className={
                                         `px-3 text-[17px] lg:hidden text-purple-900 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:border-2 border-purple-700 }`
                                     }>

@@ -1,16 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
 import login from '../../../public/Image/Login.jpg'
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import head from '../../../public/Image/Head.avif'
-import { AuthContext } from '../../Provider/AuthProvider';
 import toast from 'react-hot-toast';
-import axios from 'axios';
+import useAuth from '../../hooks/useAuth';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const Login = () => {
-
+    const axiosSecure=useAxiosSecure()
     const [showPass, setShowPass] = useState(false)
-    const { signIn ,signInWithGoogle,isOpen} = useContext(AuthContext)
+    const { signIn ,signInWithGoogle,isOpen} = useAuth()
     const navigate = useNavigate()
 
     const handleLogin = async(e) => {
@@ -21,7 +21,7 @@ const Login = () => {
 
         try{
             const result= signIn(email, password)
-            const{data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{email:result?.user?.email},{withCredentials:true})
+            const{data}=await axiosSecure.post(`/jwt`,{email:result?.user?.email})
             console.log(data);
             console.log(result);
             toast.success('User Signed In')
@@ -41,7 +41,7 @@ const Login = () => {
     const handleGoogle = async() => {
         try{
             const result=await  signInWithGoogle()
-            const{data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{email:result?.user?.email},{withCredentials:true})
+            const{data}=await axiosSecure.post(`/jwt`,{email:result?.user?.email})
             console.log(data);
             console.log(result);
             toast.success('Google SignIn Successful')

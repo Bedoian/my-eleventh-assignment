@@ -1,12 +1,12 @@
-import { useContext } from "react";
-import { AuthContext } from "../../../Provider/AuthProvider";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import axios from "axios";
 import toast from "react-hot-toast";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const UpdatePage = () => {
-    const { user } = useContext(AuthContext)
+    const { user } = useAuth()
+    const axiosSecure=useAxiosSecure()
     const data = useLoaderData()
     const { name, quantity, photo, origin, price, discription, category, _id } = data
     const navigate = useNavigate()
@@ -39,7 +39,7 @@ const UpdatePage = () => {
 
 
         try {
-            const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/myAddedItem/${_id}`, updatedItem)
+            const { data } = await axiosSecure.put(`/myAddedItem/${_id}`, updatedItem)
             console.log(data);
             if (data.modifiedCount > 0) {
                 toast.success('Item updated Successfully')

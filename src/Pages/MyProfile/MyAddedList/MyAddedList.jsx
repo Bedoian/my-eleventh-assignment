@@ -1,15 +1,16 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../Provider/AuthProvider";
+import {  useEffect, useState } from "react";
 import ListCard from "./ListCard";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyAddedList = () => {
-    const{user}=useContext(AuthContext)
+    const{user}=useAuth()
+    const axiosSecure =useAxiosSecure()
     const[addedItem,setAddedItem]=useState([])
 
     useEffect(()=>{
         const getData=async()=>{
-            const{data}=await axios.get(`${import.meta.env.VITE_API_URL}/myAdded/${user?.email}`,{withCredentials:true})
+            const{data}=await axiosSecure.get(`/myAdded/${user?.email}`)
            setAddedItem(data)
         }
         getData()

@@ -1,11 +1,12 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { useLoaderData } from "react-router-dom"
 import moment from 'moment';
-import axios from "axios";
 import toast from "react-hot-toast";
-import { AuthContext } from "../../Provider/AuthProvider";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 const MyPurchase = () => {
-    const { user } = useContext(AuthContext)
+    const { user } = useAuth()
+    const axiosSecure=useAxiosSecure()
     const data = useLoaderData()
     const [purchaseCount, setPurchaseCount] = useState(0)
     const [quantity, setQuantity] = useState(data.quantity)
@@ -36,7 +37,7 @@ const MyPurchase = () => {
         // post oparaion if purchaseCount<1
      
             try {
-                const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/myPurchase`, purchaseData)
+                const { data } = await axiosSecure.post(`/myPurchase`, purchaseData)
                 console.log(data);
                 toast.success('Item added to the Purchase List')
 

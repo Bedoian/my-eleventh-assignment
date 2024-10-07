@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "./AuthProvider";
 import { Navigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const PrivetRoute = ({children}) => {
-    const{loading,user}=useContext(AuthContext)
+    const{loading,user}=useAuth()
 
     if(loading)return 'loading...'
     if(!user)return <Navigate to='/login'></Navigate>
