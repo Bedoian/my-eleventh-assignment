@@ -2,14 +2,24 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-
-
+import { useMutation } from "@tanstack/react-query";
 const UpdatePage = () => {
     const { user } = useAuth()
-    const axiosSecure=useAxiosSecure()
+    const axiosSecure = useAxiosSecure()
     const data = useLoaderData()
     const { name, quantity, photo, origin, price, discription, category, _id } = data
     const navigate = useNavigate()
+    const { mutateAsync } = useMutation({
+        mutationFn: async (anotherDAta) => {
+            const { data } = await axiosSecure.put(`/myAddedItem/${anotherDAta.id}`, anotherDAta)
+            console.log(data);
+            if (data.modifiedCount > 0) {
+                toast.success('Item updated Successfully')
+                navigate('/myAddedList')
+            }
+        }
+
+    })
 
     const handleUpdate = async (e) => {
         e.preventDefault()
@@ -35,16 +45,17 @@ const UpdatePage = () => {
                 photo: user?.photoURL
             }
         }
-        console.table(updatedItem)
-
-
+        // console.log(updatedItem);
+        const anotherData = {
+            id: _id,
+            ...updatedItem
+        }
+        console.log('anotherDAta', anotherData);
         try {
-            const { data } = await axiosSecure.put(`/myAddedItem/${_id}`, updatedItem)
-            console.log(data);
-            if (data.modifiedCount > 0) {
-                toast.success('Item updated Successfully')
-                navigate('/myAddedList')
-            }
+
+            // console.log(updatedItem,'in 43');
+            await mutateAsync(anotherData)
+
 
         }
         catch (err) {

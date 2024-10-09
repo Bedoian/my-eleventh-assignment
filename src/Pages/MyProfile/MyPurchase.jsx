@@ -1,43 +1,42 @@
-import {  useEffect, useState } from "react";
-import axios from "axios";
+// import {  useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const MyPurchase = () => {
     const axiosSecure=useAxiosSecure()
     const { user } = useAuth()
-    const [datas, setData] = useState([])
-
-    useEffect(() => {
-        getData()
-    }, [user])
-    // console.log(datas);
+   const {data=[],isLoading,refetch}= useQuery({
+        queryFn:()=>getData(),
+        queryKey:['purchases'],
+    })
     const getData=async()=>{
         const {data}=await axiosSecure.get(`/purchaseItem/${user?.email}`)
-        setData(data)
+        return data
     }
-
     const handleDelete=async(id)=>{
         try{
-            const{data}=await axios.delete(`${import.meta.env.VITE_API_URL}/purchase/${id}`)
+            const{data}=await axiosSecure.delete(`/purchase/${id}`)
             console.log(data);
             getData()
             toast.success('Deleted Successfully')
+            refetch()
         }
         catch(err){
             console.log(err);
             toast.error(err.message)
         }
     }
+    if(isLoading)return 'alobo'
     return (
         <div className="flex lg:justify-center">
             <section className='container px-4 lg:max-w-[1450px] pt-12'>
                 <div className='flex items-center gap-x-3'>
-                    <h2 className='text-lg font-medium text-gray-800 '>Bid Requests</h2>
+                    <h2 className='text-lg font-medium text-gray-800 '>My Purchases Data</h2>
 
                     <span className='px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full '>
-                        05 Requests
+                      You Purchased {data.length}
                     </span>
                 </div>
 
@@ -105,7 +104,7 @@ const MyPurchase = () => {
                                     <tbody className='bg-white   '>
                                         {/* map will start form here */}
                                         {
-                                            datas.map(data => <tr className="border-x-2 border-pink-300 border-y-2" key={data._id}>
+                                            data.map(data => <tr className="border-x-2 border-pink-300 border-y-2" key={data._id}>
                                                 <td className='px-4 py-4 text-sm whitespace-nowrap'>
                                                 <div className="">
                                                 <img className="lg:w-[200px] rounded-md" src={data.photo} alt="" />

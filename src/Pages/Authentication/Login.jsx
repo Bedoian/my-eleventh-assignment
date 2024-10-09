@@ -8,55 +8,61 @@ import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const Login = () => {
-    const axiosSecure=useAxiosSecure()
+    const axiosSecure = useAxiosSecure()
     const [showPass, setShowPass] = useState(false)
-    const { signIn ,signInWithGoogle,isOpen} = useAuth()
+    const { signIn, signInWithGoogle, isOpen } = useAuth()
     const navigate = useNavigate()
 
-    const handleLogin = async(e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
-        try{
-            const result= signIn(email, password)
-            const{data}=await axiosSecure.post(`/jwt`,{email:result?.user?.email})
+        try {
+            const result = signIn(email, password)
+            const { data } = await axiosSecure.post(`/jwt`, { email: result?.user?.email })
             console.log(data);
             console.log(result);
-            toast.success('User Signed In')
-            navigate('/')
+            if (result.user) {
+                toast.success(' SignIn Successful')
+                navigate('/')
+            }
 
 
         }
-        catch(err){
+        catch (err) {
             console.log(err.message);
             toast.error(err.message)
         }
-       
-       
+
+
 
     }
 
-    const handleGoogle = async() => {
-        try{
-            const result=await  signInWithGoogle()
-            const{data}=await axiosSecure.post(`/jwt`,{email:result?.user?.email})
+    const handleGoogle = async () => {
+        try {
+            const result = await signInWithGoogle()
+            const { data } = await axiosSecure.post(`/jwt`, { email: result?.user?.email })
             console.log(data);
             console.log(result);
-            toast.success('Google SignIn Successful')
+            if (result.user) {
+                toast.success('Google SignIn Successful')
+                navigate('/')
+            }
+
 
         }
-      catch(err){
-        console.log(err.message);
-        toast.error(err.message)
-      }
-       
+        catch (err) {
+            console.log(err.message);
+            toast.error(err.message)
+        }
+
     }
     return (
         <div>
             <h2 className="lg:block hidden  relative top-10 text-2xl font-bold text-center">SignUp</h2>
-            <div className={`flex lg:gap-7 ${isOpen?'mt-60':''} gap-7 lg:flex-row flex-col my-10`}>
+            <div className={`flex lg:gap-7 ${isOpen ? 'mt-60' : ''} gap-7 lg:flex-row flex-col my-10`}>
 
                 <div className="w-1/2 ">
                     <img className='h-4/5 relative left-24 lg:left-48' src={login} alt="" />
