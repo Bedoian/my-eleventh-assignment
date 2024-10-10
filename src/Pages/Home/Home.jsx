@@ -1,3 +1,4 @@
+import Footer from "../../Components/Footer";
 import Carousel from "../../Components/SwiperSlider/Carousel";
 import HomeCard from "./HomeCard/HomeCard";
 
@@ -9,6 +10,7 @@ const Home = () => {
            <div className="mt-4">
            <Carousel></Carousel>
            <HomeCard></HomeCard>
+           <Footer></Footer>
            </div>
         </div>
     );
