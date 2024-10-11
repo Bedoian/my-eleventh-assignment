@@ -5,7 +5,7 @@ const FoodCard = ({ allCard }) => {
         <div>
             <div className="grid  mx-4 my-5 lg:mx-28 lg:grid-cols-3 md:grid-cols-2 md:gap-3 grid-cols-1 gap-3 lg:mt-14 lg:gap-8">
                 {
-                    allCard.map(card => <div key={card._id} className=" bg-base-100 border-gray-300 rounded-xl border-2 shadow-xl">
+                    allCard.map(card => <div key={card._id} className="transition-transform transform hover:scale-105 hover:border-purple-600  bg-base-100 border-gray-300 rounded-xl border-2 shadow-xl">
                         <figure>
                             <img
                                 className="rounded-t-lg"

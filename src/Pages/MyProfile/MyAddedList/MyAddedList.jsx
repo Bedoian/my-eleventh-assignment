@@ -20,7 +20,7 @@ const MyAddedList = () => {
     return (
         <div>
             <div>
-                <h1 className="text-3xl font-bold text-center mt-3">My Added Item:{addedItem.length}</h1>
+                <h1 className="text-3xl mt-4 font-bold text-center text-purple-400 mt-3">My Added Item : {addedItem.length}</h1>
                 <ListCard allCard={addedItem}></ListCard>
             </div>
             <Footer></Footer>
